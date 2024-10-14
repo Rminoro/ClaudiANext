@@ -53,6 +53,7 @@ import RegisterScreen from './src/screens/registro/index';
 import RedefinirSenha from './src/screens/redefinirSenha/index';
 import Perguntas from './src/screens/perguntas/index';
 
+
 const Stack = createStackNavigator();
 
 const App = () => {

@@ -269,7 +269,7 @@ const Slide = ({ images }) => {
     if (index === total - 1) {
       return (
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Claudia',)}>
-          <Text style={styles.buttonText}>Clique aqui para redirecionar</Text>
+          <Text style={styles.buttonText}>Começar</Text>
         </TouchableOpacity>
       );
     }
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
       marginHorizontal: 5,
     },
     activeDot: {
-      backgroundColor: '#007AFF', // Cor da bolinha ativa
+      backgroundColor: '#FFFFFF', // Cor da bolinha ativa
     },
     button: {
       position: 'absolute',
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
       left: 20,
       right: 20,
       height: 50,
-      backgroundColor: '#007AFF',
+      backgroundColor: '#C30617',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 8,

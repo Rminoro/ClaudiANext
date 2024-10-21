@@ -15,13 +15,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "permissions": ["CAMERA", "PHOTOS"] 
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": ["CAMERA", "PHOTOS","READ_EXTERNAL_STORAGE"] 
     },
     "web": {
       "favicon": "./assets/favicon.png"

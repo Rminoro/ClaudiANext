@@ -473,33 +473,33 @@
 
 import React, { useState } from 'react';
 import { WebView } from 'react-native-webview';
-import { View, TextInput, Button, StyleSheet, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { View, TextInput, Button, StyleSheet, ScrollView, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-
+import { LinearGradient } from 'expo-linear-gradient'; // Importando o LinearGradient
 
 const Perguntas = () => {
     const [question, setQuestion] = useState('');
-    const [graphHtml, setGraphHtml] = useState(null);  // Corrigido: 'setGraphHtml' em vez de 'setGraphHTML'
+    const [graphHtml, setGraphHtml] = useState(null);
     const [error, setError] = useState('');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const handleQuestionSubmit = async (questionToSubmit) => {
         try {
-            setLoading(true);  // Inicia o indicador de carregamento
+            setLoading(true);
             console.log("Enviando pergunta:", questionToSubmit);
             const response = await axios.post('http://192.168.15.133:5001/process_question', {
                 question: questionToSubmit
             });
-    
+
             console.log("Resposta do servidor:", response.data);
-    
+
             if (response.data.graph_html) {
-                setGraphHtml(response.data.graph_html);  // Corrigido: 'setGraphHtml' para armazenar o HTML do gráfico
+                setGraphHtml(response.data.graph_html);
             } else {
-                setGraphHtml(null);  // Corrigido para garantir que, caso não haja gráfico, o valor seja resetado
+                setGraphHtml(null);
             }
-    
+
             if (response.data.data) {
                 setData(response.data.data);
             } else {
@@ -508,7 +508,7 @@ const Perguntas = () => {
             setError('');
         } catch (error) {
             console.error("Erro ao enviar a pergunta:", error.message || "Erro desconhecido");
-    
+
             if (error.response) {
                 if (error.response.status === 401) {
                     setError("Erro de autenticação. Verifique suas credenciais.");
@@ -521,7 +521,7 @@ const Perguntas = () => {
                 setError("Erro ao processar a pergunta. Verifique a conexão com o servidor.");
             }
         } finally {
-            setLoading(false);  // Finaliza o indicador de carregamento
+            setLoading(false);
         }
     };
 
@@ -532,50 +532,64 @@ const Perguntas = () => {
     ];
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <TextInput
-                placeholder="Digite sua pergunta..."
-                value={question}
-                onChangeText={setQuestion}
-                style={styles.input}
-            />
-            <Button title="Enviar" onPress={() => handleQuestionSubmit(question)} />
-            {predefinedQuestions.map((q, index) => (
-                <Button
-                    key={index}
-                    title={q}
-                    onPress={() => handleQuestionSubmit(q)}
+        <LinearGradient
+            colors={['#000000', '#FF0000']} // Degradê de preto para vermelho
+            style={styles.container}
+        >
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <TextInput
+                    placeholder="Digite sua pergunta..."
+                    value={question}
+                    onChangeText={setQuestion}
+                    style={styles.input}
+                
                 />
-            ))}
+                <TouchableOpacity style={styles.button} onPress={() => handleQuestionSubmit(question)}>
+                    <Text style={styles.buttonText}>Enviar</Text>
+                </TouchableOpacity>
 
-            {error ? <Text style={styles.error}>{error}</Text> : null}
+                {predefinedQuestions.map((q, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.button}
+                        onPress={() => handleQuestionSubmit(q)}
+                    >
+                        <Text style={styles.buttonText}>{q}</Text>
+                    </TouchableOpacity>
+                ))}
 
-            {loading && <ActivityIndicator size="large" color="#0000ff" />}
-            {graphHtml && (
+                {error ? <Text style={styles.error}>{error}</Text> : null}
+
+                {loading && <ActivityIndicator size="large" color="#FFFFFF" />}
+                {graphHtml && (
                     <View style={styles.webviewContainer}>
                         <WebView
                             originWhitelist={['*']}
-                            source={{ html: graphHtml }}  // Use a chave 'graph_html'
+                            source={{ html: graphHtml }}
                             style={styles.webview}
                             javaScriptEnabled={true}
                             domStorageEnabled={true}
                         />
                     </View>
-            )}
+                )}
 
-            {data.length > 0 && (
-                <View style={styles.dataContainer}>
-                    {data.map((row, index) => (
-                        <Text key={index}>{JSON.stringify(row)}</Text>
-                    ))}
-                </View>
-            )}
-        </ScrollView>
+                {data.length > 0 && (
+                    <View style={styles.dataContainer}>
+                        {data.map((row, index) => (
+                            <Text key={index}>{JSON.stringify(row)}</Text>
+                        ))}
+                    </View>
+                )}
+            </ScrollView>
+        </LinearGradient>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+    },
+    scrollContainer: {
         padding: 20,
     },
     input: {
@@ -584,6 +598,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 20,
         paddingHorizontal: 10,
+        borderRadius: 5,
+        backgroundColor: '#fff', // Fundo branco para o campo de input
     },
     error: {
         color: 'red',
@@ -599,7 +615,20 @@ const styles = StyleSheet.create({
     webview: {
         flex: 1,
     },
+    button: {
+        backgroundColor: 'rgb(92, 92, 92)', // Cor de fundo dos botões
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        marginVertical: 10,
+        alignItems: 'center',
+        width: '100%', // Largura dos botões
+    },
+    buttonText: {
+        color: '#FFFFFF', // Cor do texto dos botões
+        fontSize: 16,
+        textAlign: 'center',
+    },
 });
 
 export default Perguntas;
-

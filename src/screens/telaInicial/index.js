@@ -1,80 +1,180 @@
-import React, { useState,navigation,navigate} from 'react';
-import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import * as Speech from 'expo-speech'; // Importante: você precisa instalar o pacote expo-speech
-import { useNavigation } from '@react-navigation/native'
 
+// import React, { useEffect, useState } from 'react';
+// import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+// import { LinearGradient } from 'expo-linear-gradient'; // Importando o LinearGradient
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useNavigation } from '@react-navigation/native'; // Importando useNavigation
+
+// const TelaInicial = () => {
+//   const navigation = useNavigation(); // Hook para navegação
+//   const [username, setUsername] = useState(null);
+
+//   useEffect(() => {
+//     const fetchUsername = async () => {
+//       const storedUsername = await AsyncStorage.getItem('username');
+//       if (storedUsername) {
+//         setUsername(storedUsername);
+
+//         const perfilData = await AsyncStorage.getItem(storedUsername);
+//         if (perfilData) {
+//           navigation.navigate('PerfilPessoa', { username: storedUsername });
+//         }
+//       }
+//     };
+
+//     fetchUsername();
+//   }, []);
+
+//   return (
+//     <LinearGradient
+//       colors={['#000000', '#FF0000']} Degradê de preto para vermelho
+//       style={styles.container}
+//     >
+//       <Text style={styles.header}>Bem-Vindo de volta!</Text>
+      
+//       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perguntas')}>
+//         <Text style={styles.buttonText}>Ir para Claudia</Text>
+//       </TouchableOpacity>
+    
+//       {username && (
+//           <TouchableOpacity 
+//             style={styles.button} 
+//             onPress={() => navigation.navigate('PerfilPessoa', { username: 'username ' })}
+//           >
+//             <Text style={styles.buttonText}>Ir para Perfil</Text> 
+//           </TouchableOpacity>
+//         )}
+//         <TouchableOpacity 
+//           style={styles.button} 
+//           onPress={() => navigation.navigate('PerfilEdit', { username: 'username ' })} // Substitua 'seu_usuario' conforme necessário
+//         >
+//           <Text style={styles.buttonText}>Cadastrar Perfil</Text>
+//         </TouchableOpacity>
+
+
+         
+//     </LinearGradient>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'flex-start', // Mantenha o alinhamento no início
+//     alignItems: 'center',
+//     paddingTop: 80, // Ajuste o espaço superior para o cabeçalho
+//     paddingHorizontal: 20, // Espaço nas laterais
+//   },
+//   header: {
+//     color: '#ffff',
+//     fontSize: 32, // Aumenta o tamanho da fonte
+//     textAlign: 'center', // Centraliza o texto
+//     marginBottom: 50, // Ajuste o espaço abaixo do cabeçalho para os botões
+//   },
+//   button: {
+//     backgroundColor: 'rgb(92, 92, 92)', // Cor de fundo dos botões
+//     paddingVertical: 12,
+//     paddingHorizontal: 24,
+//     borderRadius: 8,
+//     marginVertical: 10, // Ajusta o espaço vertical entre os botões
+//     alignItems: 'center',
+//     width: '80%', // Largura dos botões
+//   },
+//   buttonText: {
+//     color: '#FFFFFF', // Cor do texto dos botões
+//     fontSize: 16,
+//   },
+// });
+
+// export default TelaInicial;
+
+import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const TelaInicial = () => {
   const navigation = useNavigation();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [username, setUsername] = useState(null);
+  const [isCadastrado, setIsCadastrado] = useState(false);
 
-  const handleSearch = () => {
-    if (searchQuery.trim() !== '') {
-      // Aqui você pode adicionar a lógica para fazer a pesquisa com o texto digitado
-      Alert.alert('Pesquisa realizada', `Você pesquisou por: ${searchQuery}`);
-    } else {
-      Alert.alert('Campo vazio', 'Por favor, digite algo para pesquisar.');
-    }
-  };
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const storedUsername = await AsyncStorage.getItem('username');
+      if (storedUsername) {
+        setUsername(storedUsername);
 
-  const handleVoiceSearch = async () => {
-    try {
-      // Permite que o usuário fale para realizar a pesquisa
-      const { status } = await Speech.requestPermissionsAsync();
-      if (status === 'granted') {
-        const spokenText = await Speech.recognizeAsync();
-        if (spokenText) {
-          setSearchQuery(spokenText);
-          handleSearch();
+        // Verifica se o perfil do usuário já está cadastrado
+        const perfilData = await AsyncStorage.getItem(storedUsername);
+        if (perfilData) {
+          setIsCadastrado(true); // Usuário já está cadastrado
+          navigation.navigate('PerfilPessoa', { username: storedUsername }); // Navega para PerfilPessoa
         }
-      } else {
-        Alert.alert('Permissão negada', 'Você precisa permitir o acesso ao microfone para usar o comando de voz.');
       }
-    } catch (error) {
-      console.error('Erro ao reconhecer voz:', error);
-      Alert.alert('Erro', 'Ocorreu um erro ao tentar reconhecer a voz.');
-    }
-  };
+    };
+
+    fetchUsername();
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite sua pesquisa"
-        onChangeText={(text) => setSearchQuery(text)}
-        value={searchQuery}
-      />
-      <View style={styles.buttonContainer}>
-        <Button title="Pesquisar" onPress={handleSearch} />
-        <Button title="Comando de Voz" onPress={handleVoiceSearch} />
-        <Button
-                title="Ir para Claudia"
-                onPress={() => navigation.navigate('Perguntas')}
-        />
-      </View>
-    </View>
+    <LinearGradient
+      colors={['#000000', '#FF0000']} // Degradê de preto para vermelho
+      style={styles.container}
+    >
+      <Text style={styles.header}>Bem-Vindo de volta!</Text>
+      
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perguntas')}>
+        <Text style={styles.buttonText}>Ir para Claudia</Text>
+      </TouchableOpacity>
+    
+      {username && (
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('PerfilEdit', { username })}
+        >
+          <Text style={styles.buttonText}>Ir para Perfil</Text> 
+        </TouchableOpacity>
+      )}
+      
+      {!isCadastrado && (
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('PerfilEdit', { username })}
+        >
+          <Text style={styles.buttonText}>Cadastrar Perfil</Text>
+        </TouchableOpacity>
+      )}
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 20,
+    paddingTop: 80,
+    paddingHorizontal: 20,
   },
-  input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 20,
+  header: {
+    color: '#ffff',
+    fontSize: 32,
+    textAlign: 'center',
+    marginBottom: 50,
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
+  button: {
+    backgroundColor: 'rgb(92, 92, 92)',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginVertical: 10,
+    alignItems: 'center',
+    width: '80%',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
   },
 });
 

@@ -30,9 +30,9 @@ import { View, StyleSheet } from 'react-native';
 import Slide from '../slide/index.js';
 
 const imagens = [
-  require('../../../assets/DockerPrint.png'),
-  require('../../../assets/maquiagem.jpg'),
-  require('../../../assets/Subauwu.jpg'),
+  require('../../../assets/slide1.png'),
+  require('../../../assets/slide2.png'),
+  require('../../../assets/slide3.png'),
 ];
 
 const Inicio = () => {

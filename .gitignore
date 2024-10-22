@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+src/components/automated-lore-439403-k3-0ed19262118a.json
+
+
 # Expo
 .expo/
 dist/

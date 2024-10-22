@@ -131,7 +131,7 @@ const TelaInicial = () => {
       {username && (
         <TouchableOpacity 
           style={styles.button} 
-          onPress={() => navigation.navigate('PerfilEdit', { username })}
+          onPress={() => navigation.navigate('PerfilPessoa', { username })}
         >
           <Text style={styles.buttonText}>Ir para Perfil</Text> 
         </TouchableOpacity>

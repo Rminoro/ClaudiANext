@@ -89,7 +89,7 @@
 // export default TelaInicial;
 
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet,Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -118,14 +118,15 @@ const TelaInicial = () => {
   }, []);
 
   return (
-    <LinearGradient
-      colors={['#000000', '#FF0000']} // Degradê de preto para vermelho
-      style={styles.container}
-    >
-      <Text style={styles.header}>Bem-Vindo de volta!</Text>
-      
+    <View style={styles.container}>
+    
+      <View style={styles.headerContainer}>
+
+        <Text style={styles.header}>Bem-Vindo de volta!{'\n'}Como posso ajudar?</Text>
+
+      </View>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perguntas')}>
-        <Text style={styles.buttonText}>Ir para Claudia</Text>
+        <Text style={styles.buttonText}>Claudia</Text>
       </TouchableOpacity>
     
       {username && (
@@ -133,7 +134,7 @@ const TelaInicial = () => {
           style={styles.button} 
           onPress={() => navigation.navigate('PerfilPessoa', { username })}
         >
-          <Text style={styles.buttonText}>Ir para Perfil</Text> 
+          <Text style={styles.buttonText}>Meu Perfil</Text> 
         </TouchableOpacity>
       )}
       
@@ -145,7 +146,16 @@ const TelaInicial = () => {
           <Text style={styles.buttonText}>Cadastrar Perfil</Text>
         </TouchableOpacity>
       )}
-    </LinearGradient>
+    
+    
+        <Image 
+          source={require('../../../assets/ntjtechfooter.png')}
+          style={styles.footerImage}
+        />
+     
+
+    </View>
+   
   );
 };
 
@@ -154,20 +164,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 80,
-    paddingHorizontal: 20,
+
   },
   header: {
-    color: '#ffff',
+    
+    color: '#FFFFFF',
     fontSize: 32,
-    textAlign: 'center',
+    alignItems:'flex-start',
     marginBottom: 50,
+    height: 'auto',    
+    borderBottomLeftRadius:20,
+    marginLeft:20
+
+  },
+  headerContainer:{
+    backgroundColor: '#FF0017', // Fundo vermelho para o cabeçalho
+    paddingVertical: 20,        // Pode ajustar a altura aqui
+    width: '100%',              // Preenche toda a largura
+       // Alinha o texto no centro
+    paddingHorizontal: 0,
+    borderBottomLeftRadius:30,
+    borderBottomRightRadius:30,
   },
   button: {
-    backgroundColor: 'rgb(92, 92, 92)',
+    backgroundColor: '#FF0017',
     paddingVertical: 12,
     paddingHorizontal: 24,
-    borderRadius: 8,
+    borderRadius: 20,
     marginVertical: 10,
     alignItems: 'center',
     width: '80%',
@@ -176,6 +199,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
   },
+  footerImage:{
+  maxWidth:'100%',
+  maxHeight:'100%',
+  objectFit:'contain',
+  }
+
 });
 
 export default TelaInicial;

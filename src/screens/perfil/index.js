@@ -74,19 +74,15 @@ const PerfilPessoa = ({ route }) => {
     return <Text>Carregando perfil...</Text>;
   }
 
-  return (
-    <LinearGradient
-      colors={['#000000', '#FF0000']} 
-      style={styles.container}
-    >
-  
+  return ( 
       <View style={styles.header}>
+        <Text style={styles.Perfil}>MEU PERFIL</Text>
         <Image source={{ uri: perfil.foto }} style={styles.profileImage} />
         <Text style={styles.name}>{perfil.nome}</Text>
         <Text style={styles.location}>{perfil.estado}</Text>
         <Text style={styles.cargo}>{perfil.cargo}</Text>
       </View>
-    </LinearGradient>
+  
   );
 };
 
@@ -96,16 +92,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     paddingTop: 50,
+    
   },
   header: {
     backgroundColor: '#FF0000', // Cor de fundo vermelha
     width: '100%',
     alignItems: 'center',
+    marginTop: 120,
     paddingVertical: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderRadius:20
+  },
+  Perfil:{
+  
+    fontSize: 20,            // Tamanho grande
+    fontWeight: 'bold',      // Negrito
+    color: '#FFFFFF',// Cor vermelha
+    marginBottom: 50,  
   },
   profileImage: {
+    
     width: 120,
     height: 120,
     borderRadius: 60,
@@ -114,16 +119,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   name: {
+    marginTop:30,
     fontSize: 22,
     color: '#fff',
     fontWeight: 'bold',
   },
   location: {
+    marginTop:20,
     fontSize: 16,
     color: '#fff',
     marginBottom: 5,
   },
   cargo: {
+    marginTop:20,
     fontSize: 18,
     color: '#fff',
     fontStyle: 'italic',

@@ -4,33 +4,27 @@ import { LinearGradient } from 'expo-linear-gradient'; // Importando o LinearGra
 
 const Claudia = ({ navigation }) => {
   return (
-    <LinearGradient
-      colors={['#000000', '#FF0000']} // Degradê de preto para vermelho
-      style={styles.container}
-    >
+    
+      <View style={styles.container}>
       <Image
-        source={require('../../../assets/Claudia.png')} 
+        source={require('../../../assets/ClaudiaIcon.png')} 
         style={styles.image}
       />
 
        
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Ir para Login</Text>
+        <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       
       <TouchableOpacity style={styles.button} onPress={() => Linking.openURL('https://claud-ia-website.vercel.app/')}>
         <Text style={styles.buttonText}>Saber Mais</Text>
       </TouchableOpacity>
-      
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('PerfilPessoa')}>
-        <Text style={styles.buttonText}>Perfil</Text>
-      </TouchableOpacity>
-
+    
       <Image
         source={require('../../../assets/NTJTECH.png')} 
         style={styles.image2}
       />
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -40,10 +34,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start', 
     alignItems: 'center',
     paddingTop: 250, 
+    backgroundColor:'#FF0017'
   },
   image: {
     width: 182, //largura da imagem
-    height: 38, //altura da imagem
+    height: 60, //altura da imagem
     marginBottom: 30, //Espaço abaixo da imagem
   },
   image2: {
@@ -52,15 +47,16 @@ const styles = StyleSheet.create({
     marginTop: 200, //Espaço abaixo da imagem
   },
   button: {
-    backgroundColor: 'rgb(92, 92, 92)',
+    backgroundColor: '#FFFFFF',
     paddingVertical: 12,
     paddingHorizontal: 24,
-    borderRadius: 8,
+    borderRadius: 50,
     marginVertical: 8,
     alignItems: 'center',
+    width: 182 
   },
   buttonText: {
-    color: '#FFF', 
+    color: '#FF0017', 
     fontSize: 16,
   },
 });

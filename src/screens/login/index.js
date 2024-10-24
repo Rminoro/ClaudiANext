@@ -198,11 +198,9 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <LinearGradient
-      colors={['#000000', '#FF0000']}
-      style={styles.container}
-    >
+
       <View style={styles.innerContainer}>
+        <Text style={styles.h1}>Login</Text>
         <TextInput
           style={styles.input}
           placeholder="CPF"
@@ -213,6 +211,7 @@ const Login = ({ navigation }) => {
         />
         <TextInput
           style={[styles.input, styles.inputSenha]}
+         
           placeholder="Senha"
           value={senha}
           onChangeText={setSenha}
@@ -220,12 +219,12 @@ const Login = ({ navigation }) => {
           placeholderTextColor="#1D1D1D"
         />
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleEsqueceuSenha}>
           <Text style={styles.esqueceuSenha}>Esqueceu a senha? Clique aqui.</Text>
         </TouchableOpacity>
-      </View>
+        
 
       <Modal visible={modalVisible} transparent={true} animationType="fade">
         <View style={styles.modalContainer}>
@@ -235,7 +234,11 @@ const Login = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-    </LinearGradient>
+        
+     
+      </View>
+      
+   
   );
 };
 
@@ -248,18 +251,26 @@ const styles = StyleSheet.create({
      alignItems: 'center',
      justifyContent: 'center',
        paddingHorizontal: 20,
+
      },
+     h1: {
+      alignSelf: 'flex-start', // Alinhamento à esquerda
+      fontSize: 32,            // Tamanho grande
+      fontWeight: 'bold',      // Negrito
+      color: 'rgb(255, 0, 23)',// Cor vermelha
+      marginBottom: 20,        // Espaçamento abaixo do título
+    },
+     
      input: {
        width: '100%',
        height: 50,
        borderWidth: 1,
        borderColor: 'red',
-       borderRadius: 50,
+       borderRadius: 20,
        paddingHorizontal: 10,
        marginBottom: 20,
-       backgroundColor: 'rgba(92, 92, 92, 0.8)',
+       backgroundColor: 'rgba(92, 92, 92, 0.3)',
     
-          //Fundo branco semitransparente
      },
      inputSenha: {
        borderColor: 'red',
@@ -268,7 +279,7 @@ const styles = StyleSheet.create({
        width: '100%',
        height: 50,
        backgroundColor: 'rgb(255, 0, 23)', 
-       borderRadius: 50,
+       borderRadius: 20,
        alignItems: 'center',
        justifyContent: 'center',
      },
@@ -293,10 +304,15 @@ const styles = StyleSheet.create({
        marginBottom: 10,
      },
      esqueceuSenha: {
-       color: '#FFFF',
+       color: '#000000',
        marginTop: 10,
        textDecorationLine: 'underline',
-     }
+     },
+     footerImage:{
+      maxWidth:'100%',
+      maxHeight:'100%',
+      objectFit:'contain',
+      }
    });
 
 export default Login;

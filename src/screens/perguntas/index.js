@@ -931,6 +931,7 @@ const Perguntas = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [recording, setRecording] = useState(null); 
+    const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(false); // Adicionado estado para controlar a visibilidade
 
     useEffect(() => {
         const setAudioMode = async () => {
@@ -949,7 +950,6 @@ const Perguntas = () => {
     }, []);
 
     const handleQuestionSubmit = async (questionToSubmit) => {
-        
         if (questionToSubmit && !questionToSubmit.trim().endsWith('?')) {
             questionToSubmit += '?';
         }
@@ -996,7 +996,6 @@ const Perguntas = () => {
     const startRecording = async () => {
         try {
             const recordingOptions = {
-                
                 android: {
                     extension: '.mp4',
                     outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
@@ -1070,7 +1069,6 @@ const Perguntas = () => {
                 },
             });
 
-         
             const transcription = response.data.results
                 ? response.data.results
                     .map(result => result.alternatives[0].transcript)
@@ -1087,45 +1085,61 @@ const Perguntas = () => {
 
     const predefinedQuestions = [
         "Qual é o total de vendas por mês deste ano?",
-        "Qual é o total de vendas do ano passado?",
+        "Qual é a quantidade total de produtos em estoque por tipo?",
         "Qual produto teve mais vendas?"
     ];
 
     return (
-        <LinearGradient
-            colors={['#000000', '#FF0000']} 
-            style={styles.container}
-        >
+        <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <TextInput
-                    placeholder="Digite sua pergunta..."
-                    value={question}
-                    onChangeText={setQuestion}
-                    style={styles.input}
-                />
+                <View style={styles.headerContainer}>
+                    <Text style={styles.header}>Bem-vindo de volta!{'\n'}Como posso te ajudar?</Text>
+                </View>
+    
+                <View style={styles.inputBackground}>
+                    <TextInput
+                        placeholder="Digite sua pergunta..."
+                        value={question}
+                        onChangeText={setQuestion}
+                        style={styles.input}
+                    />
+                    <TouchableOpacity style={styles.iconButton} onPress={startRecording}>
+                        <Icon name="mic" size={30} color="#FFFFFF" /> 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.iconButton} onPress={stopRecording}>
+                        <Icon name="square" size={30} color="#FFFFFF" />
+                    </TouchableOpacity>
+                </View>
+    
                 <TouchableOpacity style={styles.button} onPress={() => handleQuestionSubmit(question)}>
                     <Text style={styles.buttonText}>Enviar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.iconButton} onPress={startRecording}>
-                    <Icon name="mic" size={30} color="#FFFFFF" /> 
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.iconButton} onPress={stopRecording}>
-                    <Icon name="square" size={30} color="#FFFFFF" /> 
+                {/* Botão para mostrar/esconder perguntas */}
+                <TouchableOpacity 
+                    style={styles.button} 
+                    onPress={() => setShowPredefinedQuestions(!showPredefinedQuestions)} // Alterna o estado
+                >
+                    <Text style={styles.buttonText}>
+                        {showPredefinedQuestions ? 'Histórico de perguntas' : 'Mostrar Histórico de perguntas'}
+                    </Text>
                 </TouchableOpacity>
 
-                {predefinedQuestions.map((q, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={styles.button}
-                        onPress={() => handleQuestionSubmit(q)}
-                    >
-                        <Text style={styles.buttonText}>{q}</Text>
-                    </TouchableOpacity>
-                ))}
-
+                {showPredefinedQuestions && predefinedQuestions.map((q, index) => (
+                     <TouchableOpacity
+                     style={styles.perguntas}
+                     key={index}
+                     onPress={() => handleQuestionSubmit(q)}
+                 >
+                     <View style={styles.questionContainer}>
+                         <Icon name="time" size={20} color="#FFFFFF" style={styles.questionIcon} />
+                         <Text style={styles.perguntaText}>{q}</Text>
+                     </View>
+                 </TouchableOpacity>
+             ))}
+    
                 {error ? <Text style={styles.error}>{error}</Text> : null}
-
+    
                 {loading && <ActivityIndicator size="large" color="#FFFFFF" />}
                 {graphHtml && (
                     <View style={styles.webviewContainer}>
@@ -1138,7 +1152,7 @@ const Perguntas = () => {
                         />
                     </View>
                 )}
-
+    
                 {data.length > 0 && (
                     <View style={styles.dataContainer}>
                         {data.map((row, index) => (
@@ -1147,7 +1161,7 @@ const Perguntas = () => {
                     </View>
                 )}
             </ScrollView>
-        </LinearGradient>
+        </View>
     );
 };
 
@@ -1156,44 +1170,80 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollContainer: {
+     
+    },
+    headerContainer: {
+        backgroundColor: '#FF0017', // Fundo vermelho para o cabeçalho
         padding: 20,
     },
+    header: {
+        fontFamily:'Inter',
+        fontSize: 20,
+        color: '#FFFFFF', // Cor do texto do cabeçalho
+    },
+    inputBackground: {
+        flexDirection: 'row', // Para alinhar os itens na horizontal
+        alignItems: 'center', // Centraliza verticalmente
+        backgroundColor: '#FF0017', // Fundo vermelho
+        padding: 10, // Espaçamento interno
+        borderRadius: 5, // Bordas arredondadas
+    },
     input: {
+        flex: 1,
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
-        marginBottom: 20,
-        paddingHorizontal: 10,
         borderRadius: 5,
-        backgroundColor: '#fff', 
+        paddingHorizontal: 10,
+        backgroundColor: '#FFFFFF',
+    },
+    iconButton: {
+        marginLeft: 10,
+        backgroundColor: '#FF0017', // Fundo vermelho para os botões de ícone
+        borderRadius: 5,
+        padding: 10,
+    },
+    button: {
+        backgroundColor: '#FF0017', // Fundo vermelho
+        borderRadius: 5,
+        padding: 10,
+        marginVertical: 5,
+    },
+    buttonText: {
+        color: '#FFFFFF', // Cor do texto do botão
+        textAlign: 'center',
     },
     error: {
         color: 'red',
-        marginVertical: 10,
+        textAlign: 'center',
+    },
+    webviewContainer: {
+        marginTop: 20,
+    },
+    webview: {
+        height: 400,
     },
     dataContainer: {
         marginTop: 20,
     },
-    webviewContainer: {
-        height: 400,
-        marginTop: 20,
-    },
-    webview: {
-        flex: 1,
-    },
-    button: {
-        backgroundColor: 'rgb(92, 92, 92)', 
+    perguntas: {
+        backgroundColor: 'rgba(92,92,92,0.4)', // Cor de fundo
         padding: 10,
-        borderRadius: 5,
-        marginBottom: 10,
+        borderRadius: 10,
+        marginVertical: 5,
+        flexDirection: 'row', // Para alinhar o ícone e o texto
+        alignItems: 'center', // Centralizar verticalmente
     },
-    buttonText: {
-        color: '#FFFFFF',
-        textAlign: 'center',
-    },
-    iconButton: {
-        marginBottom: 20,
+    questionContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
+    },
+    questionIcon: {
+        marginRight: 10, // Espaço entre o ícone e o texto
+    },
+    perguntaText: {
+        color: '#000000', // Cor do texto
+        fontFamily: 'Inter',
     },
 });
 

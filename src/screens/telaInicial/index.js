@@ -88,9 +88,132 @@
 
 // export default TelaInicial;
 
+
+
+
+/////////////////////////////////////////////////
+// import React, { useEffect, useState } from 'react';
+// import { View, TouchableOpacity, Text, StyleSheet,Image } from 'react-native';
+// import { LinearGradient } from 'expo-linear-gradient';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useNavigation } from '@react-navigation/native';
+
+// const TelaInicial = () => {
+//   const navigation = useNavigation();
+//   const [username, setUsername] = useState(null);
+//   const [isCadastrado, setIsCadastrado] = useState(false);
+
+//   useEffect(() => {
+//     const fetchUsername = async () => {
+//       const storedUsername = await AsyncStorage.getItem('username');
+//       if (storedUsername) {
+//         setUsername(storedUsername);
+
+//         // Verifica se o perfil do usuário já está cadastrado
+//         const perfilData = await AsyncStorage.getItem(storedUsername);
+//         if (perfilData) {
+//           setIsCadastrado(true); // Usuário já está cadastrado
+//           navigation.navigate('PerfilPessoa', { username: storedUsername }); // Navega para PerfilPessoa
+//         }
+//       }
+//     };
+
+//     fetchUsername();
+//   }, []);
+
+//   return (
+//     <View style={styles.container}>
+    
+//       <View style={styles.headerContainer}>
+
+//         <Text style={styles.header}>Bem-Vindo de volta!{'\n'}Como posso ajudar?</Text>
+
+//       </View>
+//       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perguntas')}>
+//         <Text style={styles.buttonText}>Claudia</Text>
+//       </TouchableOpacity>
+    
+//       {username && (
+//         <TouchableOpacity 
+//           style={styles.button} 
+//           onPress={() => navigation.navigate('PerfilPessoa', { username })}
+//         >
+//           <Text style={styles.buttonText}>Meu Perfil</Text> 
+//         </TouchableOpacity>
+//       )}
+      
+//       {!isCadastrado && (
+//         <TouchableOpacity 
+//           style={styles.button} 
+//           onPress={() => navigation.navigate('PerfilEdit', { username })}
+//         >
+//           <Text style={styles.buttonText}>Cadastrar Perfil</Text>
+//         </TouchableOpacity>
+//       )}
+    
+    
+//         <Image 
+//           source={require('../../../assets/ntjtechfooter.png')}
+//           style={styles.footerImage}
+//         />
+     
+
+//     </View>
+   
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'flex-start',
+//     alignItems: 'center',
+
+//   },
+//   header: {
+    
+//     color: '#FFFFFF',
+//     fontSize: 32,
+//     alignItems:'flex-start',
+//     marginBottom: 50,
+//     height: 'auto',    
+//     borderBottomLeftRadius:20,
+//     marginLeft:20
+
+//   },
+//   headerContainer:{
+//     backgroundColor: '#FF0017', // Fundo vermelho para o cabeçalho
+//     paddingVertical: 20,        // Pode ajustar a altura aqui
+//     width: '100%',              // Preenche toda a largura
+//        // Alinha o texto no centro
+//     paddingHorizontal: 0,
+//     borderBottomLeftRadius:30,
+//     borderBottomRightRadius:30,
+//   },
+//   button: {
+//     backgroundColor: '#FF0017',
+//     paddingVertical: 12,
+//     paddingHorizontal: 24,
+//     borderRadius: 20,
+//     marginVertical: 10,
+//     alignItems: 'center',
+//     width: '80%',
+//   },
+//   buttonText: {
+//     color: '#FFFFFF',
+//     fontSize: 16,
+//   },
+//   footerImage:{
+//   maxWidth:'100%',
+//   maxHeight:'100%',
+//   objectFit:'contain',
+//   }
+
+// });
+
+// export default TelaInicial;
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet,Image } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -121,10 +244,9 @@ const TelaInicial = () => {
     <View style={styles.container}>
     
       <View style={styles.headerContainer}>
-
         <Text style={styles.header}>Bem-Vindo de volta!{'\n'}Como posso ajudar?</Text>
-
       </View>
+      
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perguntas')}>
         <Text style={styles.buttonText}>Claudia</Text>
       </TouchableOpacity>
@@ -146,16 +268,20 @@ const TelaInicial = () => {
           <Text style={styles.buttonText}>Cadastrar Perfil</Text>
         </TouchableOpacity>
       )}
-    
-    
-        <Image 
-          source={require('../../../assets/ntjtechfooter.png')}
-          style={styles.footerImage}
-        />
-     
 
+      {/* Novo botão para redirecionar à tela de Insights */}
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => navigation.navigate('TelaInsights')}
+      >
+        <Text style={styles.buttonText}>Ver Insights</Text>
+      </TouchableOpacity>
+    
+      <Image 
+        source={require('../../../assets/ntjtechfooter.png')}
+        style={styles.footerImage}
+      />
     </View>
-   
   );
 };
 
@@ -164,27 +290,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-
   },
   header: {
-    
     color: '#FFFFFF',
     fontSize: 32,
-    alignItems:'flex-start',
+    alignItems: 'flex-start',
     marginBottom: 50,
     height: 'auto',    
-    borderBottomLeftRadius:20,
-    marginLeft:20
-
+    borderBottomLeftRadius: 20,
+    marginLeft: 20,
   },
-  headerContainer:{
+  headerContainer: {
     backgroundColor: '#FF0017', // Fundo vermelho para o cabeçalho
     paddingVertical: 20,        // Pode ajustar a altura aqui
     width: '100%',              // Preenche toda a largura
-       // Alinha o texto no centro
     paddingHorizontal: 0,
-    borderBottomLeftRadius:30,
-    borderBottomRightRadius:30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   button: {
     backgroundColor: '#FF0017',
@@ -199,12 +321,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
   },
-  footerImage:{
-  maxWidth:'100%',
-  maxHeight:'100%',
-  objectFit:'contain',
+  footerImage: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    objectFit: 'contain',
   }
-
 });
 
 export default TelaInicial;

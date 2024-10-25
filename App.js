@@ -53,6 +53,8 @@ import RegisterScreen from './src/screens/registro/index';
 import RedefinirSenha from './src/screens/redefinirSenha/index';
 import Perguntas from './src/screens/perguntas/index';
 import PerfilEdit from './src/screens/cadastroPerfil/index';
+import TelaInsights from './src/screens/insights/index';
+
 
 
 const Stack = createStackNavigator();
@@ -72,6 +74,7 @@ const App = () => {
         <Stack.Screen name="RedefinirSenha" component={RedefinirSenha}/>
         <Stack.Screen name="Perguntas" component={Perguntas}/>
         <Stack.Screen name="PerfilEdit" component={PerfilEdit}/>
+        <Stack.Screen name="TelaInsights" component={TelaInsights}/>
       </Stack.Navigator>
 
       

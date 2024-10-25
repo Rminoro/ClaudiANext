@@ -975,7 +975,7 @@ const Perguntas = () => {
             }
             setError('');
         } catch (error) {
-            console.error("Erro ao enviar a pergunta:", error.message || "Erro desconhecido");
+            console.error('Erro ao enviar a pergunta:', error.response ? error.response.data : error.message);
 
             if (error.response) {
                 if (error.response.status === 401) {

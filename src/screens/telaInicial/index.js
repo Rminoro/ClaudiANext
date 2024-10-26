@@ -248,7 +248,7 @@ const TelaInicial = () => {
       </View>
       
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perguntas')}>
-        <Text style={styles.buttonText}>Claudia</Text>
+        <Text style={styles.buttonText}>Claud.Ia</Text>
       </TouchableOpacity>
     
       {username && (
@@ -274,7 +274,7 @@ const TelaInicial = () => {
         style={styles.button} 
         onPress={() => navigation.navigate('TelaInsights')}
       >
-        <Text style={styles.buttonText}>Ver Insights</Text>
+        <Text style={styles.buttonText}>Gere seus Insights</Text>
       </TouchableOpacity>
     
       <Image 
@@ -287,6 +287,7 @@ const TelaInicial = () => {
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -299,10 +300,11 @@ const styles = StyleSheet.create({
     height: 'auto',    
     borderBottomLeftRadius: 20,
     marginLeft: 20,
+
   },
   headerContainer: {
     backgroundColor: '#FF0017', // Fundo vermelho para o cabeçalho
-    paddingVertical: 20,        // Pode ajustar a altura aqui
+    paddingVertical: 60,        // Pode ajustar a altura aqui
     width: '100%',              // Preenche toda a largura
     paddingHorizontal: 0,
     borderBottomLeftRadius: 30,
@@ -325,6 +327,7 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     maxHeight: '100%',
     objectFit: 'contain',
+    
   }
 });
 

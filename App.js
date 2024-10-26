@@ -62,7 +62,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Inicio" component={Inicio} />
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Claudia" component={claudia}/>

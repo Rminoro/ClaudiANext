@@ -918,7 +918,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
-import { View, TextInput, Button, StyleSheet, ScrollView, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, StyleSheet, ScrollView, Text, ActivityIndicator, TouchableOpacity,Image } from 'react-native';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient'; 
 import { Audio } from 'expo-av';
@@ -1085,8 +1085,9 @@ const Perguntas = () => {
 
     const predefinedQuestions = [
         "Qual é o total de vendas por mês deste ano?",
+        "Qual produto teve mais vendas?",
         "Qual é a quantidade total de produtos em estoque por tipo?",
-        "Qual produto teve mais vendas?"
+        "Qual é a quantidade total vendida de cada produto?",
     ];
 
     return (
@@ -1098,7 +1099,7 @@ const Perguntas = () => {
     
                 <View style={styles.inputBackground}>
                     <TextInput
-                        placeholder="Digite sua pergunta..."
+                        placeholder="Digite ou fale sua pergunta"
                         value={question}
                         onChangeText={setQuestion}
                         style={styles.input}
@@ -1161,6 +1162,9 @@ const Perguntas = () => {
                     </View>
                 )}
             </ScrollView>
+          
+
+     
         </View>
     );
 };
@@ -1174,7 +1178,7 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         backgroundColor: '#FF0017', // Fundo vermelho para o cabeçalho
-        padding: 20,
+        paddingVertical: 60, 
     },
     header: {
         fontFamily:'Inter',
@@ -1186,7 +1190,8 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Centraliza verticalmente
         backgroundColor: '#FF0017', // Fundo vermelho
         padding: 10, // Espaçamento interno
-        borderRadius: 5, // Bordas arredondadas
+        borderBottomEndRadius:20,
+        borderBottomLeftRadius:20,
     },
     input: {
         flex: 1,

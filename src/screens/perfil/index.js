@@ -1,50 +1,7 @@
-// import React, { useEffect, useState } from 'react';
-// import { View, Text, Image } from 'react-native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// const PerfilPessoa = ({ route }) => {
-//   const { username } = route.params; // Obtém o username dos parâmetros
-//   const [perfil, setPerfil] = useState(null);
-
-//   useEffect(() => {
-//     const fetchPerfil = async () => {
-//       try {
-//         console.log('Username recebido:', username); // Log do username
-//         const perfilData = await AsyncStorage.getItem(username);
-//         console.log('Perfil data obtido:', perfilData); // Log da data do perfil
-        
-//         if (perfilData) {
-//           setPerfil(JSON.parse(perfilData));
-//         } else {
-//           console.log('Perfil não encontrado para:', username);
-//         }
-//       } catch (error) {
-//         console.error('Erro ao obter perfil:', error);
-//       }
-//     };
-
-//     fetchPerfil();
-//   }, [username]);
-
-//   if (!perfil) {
-//     return <Text>Carregando perfil...</Text>;
-//   }
-
-//   return (
-//     <View>
-//       <Image source={{ uri: perfil.foto }} style={{ width: 200, height: 200 }} />
-//       <Text>Nome: {perfil.nome}</Text>
-//       <Text>Estado: {perfil.estado}</Text>
-//       <Text>Cargo: {perfil.cargo}</Text>
-//     </View>
-//   );
-// };
-
-// export default PerfilPessoa;
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LinearGradient } from 'expo-linear-gradient';
+
 
 const PerfilPessoa = ({ route }) => {
   const { username } = route.params; // Obtém o username dos parâmetros
@@ -81,7 +38,10 @@ const PerfilPessoa = ({ route }) => {
         <Text style={styles.name}>{perfil.nome}</Text>
         <Text style={styles.location}>{perfil.estado}</Text>
         <Text style={styles.cargo}>{perfil.cargo}</Text>
+
       </View>
+
+      
   
   );
 };

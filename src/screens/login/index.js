@@ -146,7 +146,7 @@
 
 // export default Login;
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Modal, Button } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Modal, Button, Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';  
@@ -178,7 +178,7 @@ const Login = ({ navigation }) => {
         if (response.data.perfil) {
           await AsyncStorage.setItem('perfil', JSON.stringify(response.data.perfil));
         } else {
-          console.warn('Perfil não encontrado na resposta da API.');
+          console.log('Login realizado com Sucesso.');
         }
 
         navigation.navigate('TelaInicial');
@@ -232,10 +232,14 @@ const Login = ({ navigation }) => {
             <Text style={styles.modalText}>{modalMessage}</Text>
             <Button title="Fechar" onPress={() => setModalVisible(false)} />
           </View>
+         
         </View>
       </Modal>
         
-     
+      <Image
+        source={require('../../../assets/ntjtechfooter.png')} 
+        style={styles.image2}
+      />
       </View>
       
    
@@ -312,7 +316,12 @@ const styles = StyleSheet.create({
       maxWidth:'100%',
       maxHeight:'100%',
       objectFit:'contain',
-      }
+      },
+      image2: {
+        width: 182, //largura da imagem
+        height: 40, //altura da imagem
+        marginTop: 200, //Espaço abaixo da imagem
+      },
    });
 
 export default Login;

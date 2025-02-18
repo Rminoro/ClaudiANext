@@ -26,29 +26,27 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 - 🔹 Firestore Database
 
 ## 🚀 Como Rodar o Projeto
-1. Clone o repositório:
+1. Clone os repositório:
    ```bash
    git clone https://github.com/Rminoro/ClaudiANext.git
+   git clone https://github.com/Rminoro/ClaudiaFlask/blob/main/app.py
+   git clone https://github.com/Rminoro/pythonLoginChallenge
    ```
-2. Acesse a pasta do projeto:
+3. Acesse a pasta do projeto:
    ```bash
    cd ClaudiANext
+   cd ClaudiaFlask
+   cd pythonLoginChallenge
    ```
-3. Instale as dependências:
+4. Instale as dependências:
    ```bash
-   [comando de instalação - ex: npm install, pip install -r requirements.txt]
+   pip install flask
+   npm install
    ```
-4. Execute o projeto:
+5. Execute o projeto:
    ```bash
-   [comando para rodar - ex: npm start, python app.py]
+   Comando para rodar os aplicativos: npm start (ClaudiANext), python app.py (pythonLoginChallenge e ClaudiaFlask)
    ```
-
-## 🤝 Contribuições
-Contribuições são bem-vindas! Para contribuir:
-1. Faça um fork do repositório
-2. Crie uma nova branch: `git checkout -b minha-feature`
-3. Faça as alterações necessárias e commit: `git commit -m 'Minha nova feature'`
-4. Envie um pull request 🚀
 
 ## 📄 Licença
 Este projeto está sob a licença [nome da licença, ex: MIT].
